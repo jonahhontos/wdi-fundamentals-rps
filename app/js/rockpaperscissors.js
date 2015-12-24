@@ -33,7 +33,7 @@ function getComputerMove(move) {
     // Write an expression that operates on a variable called `move`
     // If a `move` has a value, your expression should evaluate to that value.
     // However, if `move` is not specified / is null, your expression should equal `randomPlay()`.
-    var computerMove = move || getInput();
+    var computerMove = move || randomPlay();
     return computerMove;
 }
 
@@ -54,6 +54,7 @@ function getWinner(playerMove,computerMove) {
                     break;
                 case 'scissors':
                     winner = 'player';
+                    break;
             }
             break;
         case 'paper':
@@ -66,6 +67,7 @@ function getWinner(playerMove,computerMove) {
                     break;
                 case 'scissors':
                     winner = 'computer';
+                    break;
             }
             break;
         case 'scissors':
@@ -78,18 +80,43 @@ function getWinner(playerMove,computerMove) {
                     break;
                 case 'scissors':
                     winner = 'tie';
+                    break;
             }
             break;
     }
     return winner;
 }
 
-function playToFive() {
+function playTo(x) {
     console.log("Let's play Rock, Paper, Scissors");
     var playerWins = 0;
     var computerWins = 0;
     // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
     /* YOUR CODE HERE */
+    var playerMove;
+    var computerMove;
+    var winner;
+    while (playerWins < x && computerWins < x) {
+        playerMove = getPlayerMove();
+        computerMove = getComputerMove();
+        winner = getWinner(playerMove,computerMove);
+        switch (winner) {
+            case 'player':
+                playerWins++;
+                break;
+            case 'computer':
+                computerWins++;
+                break;
+        }
+        console.log('Player plays ' + playerMove + '. Computer plays ' + computerMove + '.');
+        if (winner === 'tie') {
+            console.log('The match is a tie!');
+        } else {
+            console.log(winner + ' wins!');
+        }
+        console.log('The score is now ' + playerWins + ' to ' + computerWins + '.');
+    }
+
     return [playerWins, computerWins];
 }
 
